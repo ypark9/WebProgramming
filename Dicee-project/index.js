@@ -40,5 +40,5 @@ else if((num < num2))
 }
 else
 {
-    document.querySelector("h1").textContent = "Drew!"
+    document.querySelector("h1").textContent = "Draw!"
 }
