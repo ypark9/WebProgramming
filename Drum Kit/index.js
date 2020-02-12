@@ -22,6 +22,7 @@ for(var i = 0; i < buttonlist.length; i++)
             break;
         }
         sound.play();
+        buttonAnimation(buttonInnerHtml);
     });
 }
 
@@ -29,6 +30,7 @@ document.addEventListener('keydown', logKey);
 
 function logKey(e) {
     var sound = new Audio("sounds/snare.mp3");
+    console.log(e);
     
     switch(e.code)
     {
@@ -48,4 +50,13 @@ function logKey(e) {
         break;
     }
     sound.play();
+    buttonAnimation(e.key);
+}
+
+function buttonAnimation(currentKey) {
+    var activeButton = document.querySelector("."+currentKey);
+    activeButton.classList.add("pressed");
+    setTimeout(() => {
+        activeButton.classList.remove("pressed");
+    }, 200);
 }
