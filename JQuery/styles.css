@@ -1,0 +1,10 @@
+h1{
+    background-color: aquamarine;
+}
+
+.big-title 
+{
+    font-size: 10rem;
+    font-style: italic;
+    color: cadetblue;
+}
