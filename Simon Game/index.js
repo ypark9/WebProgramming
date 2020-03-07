@@ -13,14 +13,13 @@ function gameLevelGenerator() {
     }
 
     for(let step of window.game.content){
-        (function(step){
-            setTimeout(function(){
-                console.log('value is ', step);
-            }, 3000);
-        })(step);
+        // (function(step){
+        //     setTimeout(function(){
+        //         console.log('value is ', step);
+        //     }, 3000);
+        // })(step);
 
         if(step === 0){
-            // $(".green").trigger('click');
             playSound('green');
             $('.green').addClass('pressed');
             setTimeout(() => {
@@ -46,7 +45,6 @@ function gameLevelGenerator() {
                 $('.blue').removeClass("pressed");
             }, 200);
         }
-        setTimeout(2000);
     }
 }
 
