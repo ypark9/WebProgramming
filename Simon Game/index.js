@@ -1,51 +1,21 @@
+window.color = ['green', 'red', 'yellow', 'blue'];
+
 function gameLevelGenerator() {
-    window.game.inputArr = [];
-    let count = window.game.stage;
-    for(let i = 0; i < count; i++){
-        //console.log(i);
-        if(window.game.content) {
-            window.game.content.push(Math.floor(Math.random() * 4));     // returns a random integer from 0 to 3
-        }
-        else {
-            //window.game.content = [];
-            window.game.content = [Math.floor(Math.random() * 4)];
-        }
+  window.game.inputArr = [];
+  let count = window.game.stage;
+  console.log('window stage = ' + window.game.stage);
+  
+//   for (let i = 0; i < count; i++) {
+    if (window.game.content) {
+      window.game.content.push(Math.floor(Math.random() * 4)); // returns a random integer from 0 to 3
+    } else {
+      window.game.content = [Math.floor(Math.random() * 4)];
     }
+ // }
 
-    for(let step of window.game.content){
-        // (function(step){
-        //     setTimeout(function(){
-        //         console.log('value is ', step);
-        //     }, 3000);
-        // })(step);
-
-        if(step === 0){
-            playSound('green');
-            $('.green').addClass('pressed');
-            setTimeout(() => {
-                $('.green').removeClass("pressed");
-            }, 200);
-        }
-        else if (step === 1){
-            playSound('red');
-            $('.red').addClass('pressed');
-            setTimeout(() => {
-                $('.red').removeClass("pressed");
-            }, 200);        }
-        else if(step === 2){
-            playSound('yellow');
-            $('.yellow').addClass('pressed');
-            setTimeout(() => {
-                $('.yellow').removeClass("pressed");
-            }, 200);        }
-        else if (step === 3){
-            playSound('blue');
-            $('.blue').addClass('pressed');
-            setTimeout(() => {
-                $('.blue').removeClass("pressed");
-            }, 200);
-        }
-    }
+  setTimeout(function() {
+    displayPatter(0, window.game.content);
+  }, 1000);
 }
 
 $(".btn").click(function(){ 
@@ -68,22 +38,25 @@ $(".btn").click(function(){
     console.log('choice = ' + choice);
     
     window.game.inputArr.push(choice);
-    console.log(window.game.inputArr);
-    console.log(window.game.content);
+    console.log("user input " + window.game.inputArr);
+    console.log("game content" + window.game.content);
 
     
     if(window.game.content.length === window.game.inputArr.length ){
-        if(JSON.stringify(window.game.content ) === JSON.stringify(window.game.inputArr)){
-            alert('Correct!');
+        if((window.game.content.toString() ) === (window.game.inputArr.toString())){
             window.game.stage ++;
             let stageName = 'Stage ' + window.game.stage; 
             $('h1').text(stageName);
             gameLevelGenerator();
         }else {
-            alert('Uh oh..!');
-            let stageName = 'Game over '; 
-            $('h1').text(stageName);
-            window.game.stage = 0;
+            playSound("wrong");
+            $("body").addClass("game-over");
+            $("#level-title").text("Game Over, Press Any Key to Restart");
+      
+            setTimeout(function () {
+              $("body").removeClass("game-over");
+            }, 200);
+      
         }
     }
 });
@@ -103,6 +76,25 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+//  Used to display the full pattern to the player
+function displayPatter(index, array) {
+    if(index >= array.length)
+      return;
+   
+    $("#" + window.color[array[index]]).fadeOut(150).fadeIn(150);
+    playSound(window.color[array[index]]);
+    index ++;
+    setTimeout(displayPatter.bind({}, index, array), 500);
+  }
+
+
+function playEffect(color) {
+    playSound(color);
+    $('.'+color).addClass('pressed');
+    setTimeout(() => {
+        $('.'+color).removeClass("pressed");
+    }, 200);
+}
 
 function playSound(name) {
     let soundAddress = "sounds/" + name + ".mp3";
