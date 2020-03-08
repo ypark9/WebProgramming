@@ -3,15 +3,13 @@ window.color = ['green', 'red', 'yellow', 'blue'];
 function gameLevelGenerator() {
   window.game.inputArr = [];
   let count = window.game.stage;
-  console.log('window stage = ' + window.game.stage);
-  
-//   for (let i = 0; i < count; i++) {
-    if (window.game.content) {
-      window.game.content.push(Math.floor(Math.random() * 4)); // returns a random integer from 0 to 3
-    } else {
-      window.game.content = [Math.floor(Math.random() * 4)];
-    }
- // }
+  console.log("window stage = " + window.game.stage);
+
+  if (window.game.content) {
+    window.game.content.push(Math.floor(Math.random() * 4)); // returns a random integer from 0 to 3
+  } else {
+    window.game.content = [Math.floor(Math.random() * 4)];
+  }
 
   setTimeout(function() {
     displayPatter(0, window.game.content);
@@ -88,13 +86,13 @@ function displayPatter(index, array) {
   }
 
 
-function playEffect(color) {
-    playSound(color);
-    $('.'+color).addClass('pressed');
-    setTimeout(() => {
-        $('.'+color).removeClass("pressed");
-    }, 200);
-}
+// function playEffect(color) {
+//     playSound(color);
+//     $('.'+color).addClass('pressed');
+//     setTimeout(() => {
+//         $('.'+color).removeClass("pressed");
+//     }, 200);
+// }
 
 function playSound(name) {
     let soundAddress = "sounds/" + name + ".mp3";
